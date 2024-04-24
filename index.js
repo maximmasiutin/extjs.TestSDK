@@ -8,7 +8,7 @@ import { formatDistance } from 'date-fns'
 
 const { terminal: term } = terminal
 
-const browsers = ['firefox', 'webkit']
+const browsers = ['chromium', 'firefox', 'webkit']
 const toolkits = ['modern', 'classic']
 const indent = '  '
 const allTests = {}
