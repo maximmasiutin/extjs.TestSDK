@@ -1,6 +1,6 @@
 #!/usr/bin/node
 
-import * as fs from 'fs'
+import fs from 'fs/promises'
 import { resolve } from 'path'
 import { performance } from 'perf_hooks'
 import playwright from 'playwright'
