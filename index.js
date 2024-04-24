@@ -1,8 +1,4 @@
-#!/usr/bin/node
-
-// const fs = require('fs');
-
-// import fs from 'fs'
+import fs from 'fs'
 import { resolve } from 'path'
 import { performance } from 'perf_hooks'
 import playwright from 'playwright'
