@@ -125,6 +125,7 @@ const getRunner = (browser, toolkit) => {
 const testStartTime = performance.now()
 let totalTestsRun = 0
 let totalTestsFailed = 0
+(async function(){
 const allResults = await Promise.all(
     toolkits
         .map((toolkit) => browsers.map((browser) => [browser, toolkit]))
@@ -132,6 +133,8 @@ const allResults = await Promise.all(
         .map(([browser, toolkit]) => getRunner(browser, toolkit))
         .map((runner) => runner())
 )
+})()
+
 const testEndTime = performance.now()
 
 term.white('\n')
