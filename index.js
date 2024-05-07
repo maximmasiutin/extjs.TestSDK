@@ -107,7 +107,7 @@ const getRunner = (browser, toolkit) => {
     return async () => {
         const engine = playwright[browser]
         const id = `${toolkit}-${browser}`
-        const url = `http://127.0.0.1:1841/ext/${toolkit}/${toolkit}/test/local/?load=Ext.button.Button&collapseAll=true&headless-test=true`
+        const url = `http://127.0.0.1:1841/ext/${toolkit}/${toolkit}/test/local/?load=Ext.button.Button&collapseAll=true&headless-test=true&load=Ext.calendar.*`
         const start = performance.now()
         const results = await run(engine, url, {
             launchSettings: { headless: true },
