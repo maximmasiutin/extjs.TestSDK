@@ -31,6 +31,28 @@ testFolders.forEach(directory => {
 
 process.exit();
 */
+
+var sdkHost = '';
+var singleTest = '';
+var showPass = 0;
+var argIndex = 0;
+
+args.forEach(function(arg) {
+  switch(arg) {
+    case '-sdk-url':
+      sdkHost = args[argIndex + 1];
+    break;
+    case '-single-test':
+      singleTest = args[argIndex + 1];
+    break;
+    case '-show-pass':
+      showPass = args[argIndex + 1];
+    break;
+  }
+  argIndex++;
+});
+
+
 term.clear()
 term.white.bold(`Running Unit tests in ${browsers.join(', ')} using ${toolkits.join(', ')}. ⚔️\n`)
 
