@@ -25,6 +25,7 @@ function listDirectory(directory) {
 
 testFolders.forEach(directory => {
   listDirectory(directory);
+    console.log('--------------');
 });
 
 process.exit();
