@@ -7,20 +7,39 @@ import { formatDistance } from 'date-fns'
 import { createServer } from 'http-server'
 
 const { terminal: term } = terminal
-const browsers = ['webkit']
-const toolkits = ['classic']
 const indent = '  '
 const resultsDir = resolve('.', 'results')
+
 if (!fs.existsSync(resultsDir)) {
   fs.mkdirSync(resultsDir)
 }
+
+const args = process.argv.slice(2);
 
 var sdkHost = '';
 var singleTest = '';
 var showPass = false;
 var argIndex = 0;
+var browsers = ['chromium', 'firefox', 'webkit'];
+var toolkits = ['classic', 'modern'];
 
-const args = process.argv.slice(2);
+let separator = ',';
+
+function validateValues(types, providedValues) {
+    let validTypes = [];
+
+    providedValues.forEach(function(value) {
+      if (types.includes(value)) {
+        validTypes.push(value);
+      }
+    });
+
+    if (validTypes.length === 0) {
+      validTypes = types;
+    }
+
+    return validTypes;
+}
 
 args.forEach(function(arg) {
   switch(arg) {
@@ -33,10 +52,26 @@ args.forEach(function(arg) {
     case '-show-pass':
       showPass = (args[argIndex + 1] === 'true');
     break;
+    case '-browsers':
+      browsers = validateValues(
+          browsers,
+          (args[argIndex + 1]).split(separator)
+      );
+      break;
+    case '-toolkits':
+      toolkits = validateValues(
+          toolkits,
+          (args[argIndex + 1]).split(separator)
+      );
+      break;  
   }
   argIndex++;
 });
 
+console.log(browsers);
+console.log(toolkits);
+
+process.exit();
 
 term.clear()
 term.white.bold(`Running Unit tests in ${browsers.join(', ')} using ${toolkits.join(', ')}. ⚔️\n`)
