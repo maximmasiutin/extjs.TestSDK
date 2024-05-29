@@ -28,9 +28,9 @@ testFolders.forEach(directory => {
   listDirectory(directory);
     console.log('--------------');
 });
-*/
-process.exit();
 
+process.exit();
+*/
 term.clear()
 term.white.bold(`Running Unit tests in ${browsers.join(', ')} using ${toolkits.join(', ')}. ⚔️\n`)
 
