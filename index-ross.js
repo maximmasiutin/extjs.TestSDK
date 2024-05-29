@@ -15,26 +15,9 @@ if (!fs.existsSync(resultsDir)) {
   fs.mkdirSync(resultsDir)
 }
 
-/*
-const testFolders = ['./', '../', '../../'];
-
-function listDirectory(directory) {
-  fs.readdirSync(directory).forEach(file => {
-    console.log(file);
-  });
-}
-
-testFolders.forEach(directory => {
-  listDirectory(directory);
-    console.log('--------------');
-});
-
-process.exit();
-*/
-
 var sdkHost = '';
 var singleTest = '';
-var showPass = 0;
+var showPass = false;
 var argIndex = 0;
 
 args.forEach(function(arg) {
@@ -46,7 +29,7 @@ args.forEach(function(arg) {
       singleTest = args[argIndex + 1];
     break;
     case '-show-pass':
-      showPass = args[argIndex + 1];
+      showPass = (args[argIndex + 1] === 'true');
     break;
   }
   argIndex++;
@@ -144,10 +127,17 @@ const getRunner = (browser, toolkit) => {
     const id = `${toolkit}-${browser}`
     const url = `http://127.0.0.1:1841/ext/${toolkit}/${toolkit}/test/local/?headless-test=true`
     //const url = `http://127.0.0.1:1841/ext/${toolkit}/${toolkit}/test/local/?collapseAll=true&headless-test=true&load=Ext.calendar.*`
+    
+    let url = sdkHost + `/ext/${toolkit}/${toolkit}/test/local/?headless-test=true`;
+
+    if (singleTest) {
+      url += '&load=' + singleTest;
+    }
+    
     const start = performance.now()
     const results = await run(engine, url, {
       launchSettings: { headless: true },
-      processorSettings: { showPassed: true, toolkit },
+      processorSettings: { showPassed: showPass, toolkit },
     })
 
     return { id, results, time: formatDistance(start, performance.now()) }
