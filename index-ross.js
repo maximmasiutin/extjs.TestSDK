@@ -15,6 +15,7 @@ if (!fs.existsSync(resultsDir)) {
   fs.mkdirSync(resultsDir)
 }
 
+/*
 const testFolders = ['./', '../', '../../'];
 
 function listDirectory(directory) {
@@ -27,7 +28,7 @@ testFolders.forEach(directory => {
   listDirectory(directory);
     console.log('--------------');
 });
-
+*/
 process.exit();
 
 term.clear()
