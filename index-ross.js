@@ -20,6 +20,8 @@ var singleTest = '';
 var showPass = false;
 var argIndex = 0;
 
+const args = process.argv.slice(2);
+
 args.forEach(function(arg) {
   switch(arg) {
     case '-sdk-url':
