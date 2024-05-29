@@ -124,8 +124,8 @@ const getRunner = (browser, toolkit) => {
 }
 
 const PORT = 1841
-const server = createServer({ root: './' })
-server.listen(1841)
+const server = createServer()
+server.listen(PORT)
 term.green(`Server Listening on port ${PORT}\n`)
 
 const testStartTime = performance.now()
