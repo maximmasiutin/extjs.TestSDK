@@ -68,11 +68,6 @@ args.forEach(function(arg) {
   argIndex++;
 });
 
-console.log(browsers);
-console.log(toolkits);
-
-process.exit();
-
 term.clear()
 term.white.bold(`Running Unit tests in ${browsers.join(', ')} using ${toolkits.join(', ')}. ⚔️\n`)
 
