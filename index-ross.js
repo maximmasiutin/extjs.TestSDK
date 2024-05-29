@@ -15,7 +15,7 @@ if (!fs.existsSync(resultsDir)) {
   fs.mkdirSync(resultsDir)
 }
 
-testFolders = ['./', '../', '../../'];
+const testFolders = ['./', '../', '../../'];
 
 function listDirectory(directory) {
   fs.readdirSync(directory).forEach(file => {
