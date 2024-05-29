@@ -15,7 +15,7 @@ if (!fs.existsSync(resultsDir)) {
   fs.mkdirSync(resultsDir)
 }
 
-const testFolder = './';
+const testFolder = '../';
 fs.readdirSync(testFolder).forEach(file => {
   console.log(file);
 });
