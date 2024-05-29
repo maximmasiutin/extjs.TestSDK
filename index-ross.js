@@ -125,8 +125,6 @@ const getRunner = (browser, toolkit) => {
   return async () => {
     const engine = playwright[browser]
     const id = `${toolkit}-${browser}`
-    const url = `http://127.0.0.1:1841/ext/${toolkit}/${toolkit}/test/local/?headless-test=true`
-    //const url = `http://127.0.0.1:1841/ext/${toolkit}/${toolkit}/test/local/?collapseAll=true&headless-test=true&load=Ext.calendar.*`
     
     let url = sdkHost + `/ext/${toolkit}/${toolkit}/test/local/?headless-test=true`;
 
