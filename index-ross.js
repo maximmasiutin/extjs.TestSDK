@@ -122,7 +122,7 @@ const getRunner = (browser, toolkit) => {
 }
 
 const PORT = 1841
-const server = createServer({ root: '../' })
+const server = createServer({ root: '../../' })
 server.listen(1841)
 term.green(`Server Listening on port ${PORT}\n`)
 
