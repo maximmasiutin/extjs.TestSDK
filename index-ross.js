@@ -15,12 +15,19 @@ if (!fs.existsSync(resultsDir)) {
   fs.mkdirSync(resultsDir)
 }
 
-const testFolder = '../';
-fs.readdirSync(testFolder).forEach(file => {
-  console.log(file);
-});
-process.exit();
+testFolders = ['./', '../', '../../'];
 
+function listDirectory(directory) {
+  fs.readdirSync(directory).forEach(file => {
+    console.log(file);
+  });
+}
+
+testFolders.forEach(directory => {
+  listDirectory(directory);
+});
+
+process.exit();
 
 term.clear()
 term.white.bold(`Running Unit tests in ${browsers.join(', ')} using ${toolkits.join(', ')}. ⚔️\n`)
