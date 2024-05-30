@@ -3,6 +3,7 @@ import { resolve } from 'path'
 import { performance } from 'perf_hooks'
 import playwright from 'playwright'
 import terminal from 'terminal-kit'
+import shortid from 'shortid'
 import { formatDistance } from 'date-fns'
 import { createServer } from 'http-server'
 
