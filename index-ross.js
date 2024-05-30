@@ -8,6 +8,7 @@ import { createServer } from 'http-server'
 
 const { terminal: term } = terminal
 const indent = '  '
+const testRunId = shortid.generate()
 const resultsDir = resolve('.', 'results')
 
 if (!fs.existsSync(resultsDir)) {
