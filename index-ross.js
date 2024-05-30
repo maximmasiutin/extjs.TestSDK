@@ -204,7 +204,8 @@ allResults.forEach(({ id, results, time }) => {
     term.bgWhite.black(`${results.length} test ran in ${time} on ${id}. `)
 
     if (totalFailures) {
-      totalTestsFailed += totalFailures
+      totalTestsFailed += totalFailures;
+      fs.writeFileSync(resolve(resultsDir, `${testRunId}-${id}.json`), JSON.stringify(failed, 0, 2))
       term.bgWhite.red(`${totalFailures} failed.  👎\n`)
     } else {
       term.bgWhite.green('All Passed 💪\n')
