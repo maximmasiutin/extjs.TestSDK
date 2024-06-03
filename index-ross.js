@@ -133,8 +133,6 @@ const run = (engine, url, { launchSettings, processorSettings } = {}) => {
     const engineName = engine.name()
 
     const cb = async (results) => {
-      await context.close()
-      await browser.close()
       resolve(results)
     }
     const processor = createMessageProcessor(cb, { ...processorSettings, browser: engineName })
@@ -151,7 +149,8 @@ const run = (engine, url, { launchSettings, processorSettings } = {}) => {
     page.on('console', (msg) => term.brightBlue(`${msg.text()}\n`))
 
     await page.goto(url)
-    // await page.screenshot({ path: 'screenshot.png' });
+    await context.close()
+    await browser.close()
   })
 }
 
