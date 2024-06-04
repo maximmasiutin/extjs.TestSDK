@@ -1,8 +1,8 @@
 #!/bin/sh
 
 testRunerFileName='./run-tests.js';
-runParams='-sdk-url http://127.0.0.1:1841/ -no-webserver';
-nodeJs='/opt/homebrew/bin/node';
+runParams='-sdk-url http://127.0.0.1:1841/';
+nodeJs='node';
 disableLeakChecks='';
 
 # shellcheck disable=SC2039
