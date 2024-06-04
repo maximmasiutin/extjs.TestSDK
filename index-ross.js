@@ -3,13 +3,13 @@ import { resolve } from 'path'
 import { performance } from 'perf_hooks'
 import playwright from 'playwright'
 import terminal from 'terminal-kit'
-import shortid from 'shortid'
+import shortuniqueid from "short-unique-id";
 import { formatDistance } from 'date-fns'
 import { createServer } from 'http-server'
 
 const { terminal: term } = terminal
 const indent = '  '
-const testRunId = shortid.generate()
+const testRunId = (new shortuniqueid({length: 10})).rnd();
 const resultsDir = resolve('.', 'results')
 
 if (!fs.existsSync(resultsDir)) {
@@ -24,8 +24,10 @@ var showPass = false;
 var argIndex = 0;
 var browsers = ['chromium', 'firefox', 'webkit'];
 var toolkits = ['classic', 'modern'];
+var lastOutput = `\n`;
 
-let separator = ',';
+
+const separator = ',';
 
 function validateValues(types, providedValues) {
     let validTypes = [];
@@ -45,6 +47,9 @@ function validateValues(types, providedValues) {
 
 args.forEach(function(arg) {
   switch(arg) {
+    case '-last-space':
+      lastOutput = ` `;
+    break;
     case '-sdk-url':
       sdkHost = args[argIndex + 1];
     break;
@@ -179,7 +184,7 @@ const getRunner = (browser, toolkit) => {
 const PORT = 1841
 const server = createServer({ root: '../' })
 server.listen(PORT)
-term.green(`Server Listening on port ${PORT}\n`)
+term.green(`Server listening on port ${PORT}\n`)
 
 const testStartTime = performance.now()
 let totalTestsRun = 0
@@ -203,7 +208,7 @@ allResults.forEach(({ id, results, time }) => {
   totalTestsRun += results.length
 
   if (results.length > 0) {
-    term.bgWhite.black(`${results.length} test ran in ${time} on ${id}. `)
+    term.bgWhite.black(`${results.length} test ran in ${time} on ${id}.${lastOutput}`)
 
     if (totalFailures) {
       totalTestsFailed += totalFailures;

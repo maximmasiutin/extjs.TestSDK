@@ -1,20 +1,20 @@
 #!/bin/sh
 
 testRunerFileName='./run-tests.js';
-runParams='-sdk-url http://127.0.0.1:1842/';
-nodeJs='/opt/homebrew/bin/node';
+runParams='-sdk-url http://127.0.0.1:1841/';
+nodeJs='node';
 disableLeakChecks='';
 
 # shellcheck disable=SC2039
 disableLeakChecksForTest=(
-  'Ext.draw.Surface'
+  'Ext.calendar.panel.Panel'
+  'Ext.grid.Grid'
 );
 
 # shellcheck disable=SC2039
 falsePositiveTests=(
   'Ext.calendar.panel.Panel'
   'Ext.pivot.Grid.classic'
-  'Ext.grid.plugin.Editable'
   'Ext.draw.Surface'
   'Ext.grid.filters.Filters'
   'Ext.froala.Editor.classic'
@@ -30,6 +30,7 @@ falsePositiveTests=(
   'grid-cell-edit'
   'Ext.grid.Grid'
   'Ext.grid.filters.Plugin'
+  'Ext.grid.plugin.Editable'
 );
 
 # shellcheck disable=SC2039
@@ -44,6 +45,7 @@ then
     else
       disableLeakChecks='';
     fi
+
     $nodeJs $testRunerFileName $runParams $disableLeakChecks -single-test $value
   done
 else

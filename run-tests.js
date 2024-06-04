@@ -5,11 +5,11 @@ import playwright from 'playwright';
 import terminal from 'terminal-kit';
 import { formatDistance } from 'date-fns';
 import { createServer } from 'http-server';
-import shortid from "shortid";
+import shortuniqueid from "short-unique-id";
 
 const { terminal: term } = terminal;
 const indent = '  ';
-const testRunId = shortid.generate();
+const testRunId = (new shortuniqueid({length: 10})).rnd();
 const resultsDir = resolve('.', 'results');
 
 if (!fs.existsSync(resultsDir)) {
@@ -19,9 +19,6 @@ if (!fs.existsSync(resultsDir)) {
 const args = process.argv.slice(2);
 
 const extractedSdkTest = [
-  'Ext.calendar.panel.Panel',
-  'Ext.pivot.Grid.classic',
-  'Ext.grid.plugin.Editable',
   'Ext.grid.column.Check',
   'Ext.util.Positionable',
   'Ext.grid.column.Check',
@@ -44,7 +41,7 @@ var argIndex = 0;
 var browsers = ['chromium', 'firefox', 'webkit'];
 var toolkits = ['classic', 'modern'];
 
-let separator = ',';
+const separator = ',';
 
 function validateValues(types, providedValues) {
     let validTypes = [];
@@ -96,7 +93,7 @@ args.forEach(function(arg) {
 });
 
 term.clear();
-term.white.bold(`Running Unit tests in ${browsers.join(', ')} using ${toolkits.join(', ')}. ⚔️\n`)
+term.white.bold(`Running Unit tests in ${browsers.join(', ')} using ${toolkits.join(', ')}. ⚔️\n`);
 
 const createMessageProcessor = (callback, { browser, showPassed, toolkit } = {}) => {
   const results = [];
@@ -107,8 +104,8 @@ const createMessageProcessor = (callback, { browser, showPassed, toolkit } = {})
   const suffix = `(${toolkit}-${browser})`;
 
   return (msg) => {
-    console.log(currentSuite[0]);
     if (!extractedSdkTest.includes(currentSuite[0])) {
+      // console.log(currentSuite[0]);
       const {type, name, message, plan, topSuite} = msg;
       const suite = currentSuite.join(' / ');
 
@@ -149,8 +146,8 @@ const createMessageProcessor = (callback, { browser, showPassed, toolkit } = {})
         callback(results);
       }
     }
-  }
-}
+  };
+};
 
 const run = (engine, url, { launchSettings, processorSettings } = {}) => {
   return new Promise(async (resolve) => {
@@ -165,7 +162,7 @@ const run = (engine, url, { launchSettings, processorSettings } = {}) => {
       resolve(results);
     };
 
-    const processor = createMessageProcessor(cb, { ...processorSettings, browser: engineName })
+    const processor = createMessageProcessor(cb, { ...processorSettings, browser: engineName });
 
     await page.exposeFunction('report', (data) => {
       if (Array.isArray(data)) {
@@ -184,8 +181,8 @@ const run = (engine, url, { launchSettings, processorSettings } = {}) => {
 
 const getRunner = (browser, toolkit) => {
   return async () => {
-    const engine = playwright[browser]
-    const id = `${toolkit}-${browser}`
+    const engine = playwright[browser];
+    const id = `${toolkit}-${browser}`;
     let url = sdkHost + `ext/${toolkit}/${toolkit}/test/local/?headless-test=true`;
 
     if (singleTest) {
@@ -200,27 +197,27 @@ const getRunner = (browser, toolkit) => {
     const results = await run(engine, url, {
       launchSettings: { headless: true },
       processorSettings: { showPassed: showPass, toolkit },
-    })
+    });
 
-    return { id, results, time: formatDistance(start, performance.now()) }
-  }
-}
+    return { id, results, time: formatDistance(start, performance.now()) };
+  };
+};
 
 var server;
 if (doNotRunWebServer === false) {
-  const PORT = 1842;
+  const PORT = 1841;
   server = createServer(
       {
-        root: '../SDK3/'
+        root: '../'
       }
   );
   server.listen(PORT);
   term.green(`Server Listening on port ${PORT}\n`);
 }
 
-const testStartTime = performance.now()
-let totalTestsRun = 0
-let totalTestsFailed = 0
+const testStartTime = performance.now();
+let totalTestsRun = 0;
+let totalTestsFailed = 0;
 
 const allResults = await Promise.all(
   toolkits
@@ -228,36 +225,36 @@ const allResults = await Promise.all(
     .flat()
     .map(([browser, toolkit]) => getRunner(browser, toolkit))
     .map((runner) => runner())
-)
+);
 
-const testEndTime = performance.now()
+const testEndTime = performance.now();
 
-term.white('\n')
+term.white('\n');
 allResults.forEach(({ id, results, time }) => {
-  const failed = results.filter((result) => !result.passed)
-  const totalFailures = failed.length
+  const failed = results.filter((result) => !result.passed);
+  const totalFailures = failed.length;
 
-  totalTestsRun += results.length
+  totalTestsRun += results.length;
 
   if (results.length > 0) {
-    term.bgWhite.black(`${results.length} test ran in ${time} on ${id}. `)
+    term.bgWhite.black(`${results.length} test ran in ${time} on ${id}. `);
 
     if (totalFailures) {
-      totalTestsFailed += totalFailures
-      fs.writeFileSync(resolve(resultsDir, `${testRunId}-${id}.json`), JSON.stringify(failed, 0, 2))
-      term.bgWhite.red(`${totalFailures} failed.  👎\n`)
+      totalTestsFailed += totalFailures;
+      fs.writeFileSync(resolve(resultsDir, `${testRunId}-${id}.json`), JSON.stringify(failed, 0, 2));
+      term.bgWhite.red(`${totalFailures} failed.  👎\n`);
     } else {
-      term.bgWhite.green('All Passed 💪\n')
+      term.bgWhite.green('All Passed 💪\n');
     }
   }
-})
+});
 
-term.bgBlue.white(`${totalTestsRun} tests ran in ${formatDistance(testStartTime, testEndTime)}. `)
+term.bgBlue.white(`${totalTestsRun} tests ran in ${formatDistance(testStartTime, testEndTime)}. `);
 
 if (totalTestsFailed) {
-  term.bgBlue.red(`${totalTestsFailed} total failed tests. 👎`)
+  term.bgBlue.red(`${totalTestsFailed} total failed tests. 👎`);
 } else {
-  term.bgBlue.green('All Passed 💪\n')
+  term.bgBlue.green('All Passed 💪\n');
 }
 
 if (doNotRunWebServer === false) {
