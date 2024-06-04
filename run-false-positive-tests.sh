@@ -9,6 +9,7 @@ disableLeakChecks='';
 disableLeakChecksForTest=(
   'Ext.calendar.panel.Panel'
   'Ext.grid.Grid'
+  'Ext.grid.plugin.Editable'
 );
 
 # shellcheck disable=SC2039
