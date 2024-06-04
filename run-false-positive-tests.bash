@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 testRunerFileName='./run-tests.js';
 runParams='-sdk-url http://127.0.0.1:1841/';
