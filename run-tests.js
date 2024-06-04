@@ -5,11 +5,11 @@ import playwright from 'playwright';
 import terminal from 'terminal-kit';
 import { formatDistance } from 'date-fns';
 import { createServer } from 'http-server';
-import shortid from "shortid";
+import shortuniqueid from "short-unique-id";
 
 const { terminal: term } = terminal;
 const indent = '  ';
-const testRunId = shortid.generate();
+const testRunId = (new shortuniqueid({length: 10})).rnd();
 const resultsDir = resolve('.', 'results');
 
 if (!fs.existsSync(resultsDir)) {
@@ -19,9 +19,6 @@ if (!fs.existsSync(resultsDir)) {
 const args = process.argv.slice(2);
 
 const extractedSdkTest = [
-  'Ext.calendar.panel.Panel',
-  'Ext.pivot.Grid.classic',
-  'Ext.grid.plugin.Editable',
   'Ext.grid.column.Check',
   'Ext.util.Positionable',
   'Ext.grid.column.Check',
@@ -107,8 +104,8 @@ const createMessageProcessor = (callback, { browser, showPassed, toolkit } = {})
   const suffix = `(${toolkit}-${browser})`;
 
   return (msg) => {
-    console.log(currentSuite[0]);
     if (!extractedSdkTest.includes(currentSuite[0])) {
+      console.log(currentSuite[0]);
       const {type, name, message, plan, topSuite} = msg;
       const suite = currentSuite.join(' / ');
 
