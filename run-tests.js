@@ -105,7 +105,7 @@ const createMessageProcessor = (callback, { browser, showPassed, toolkit } = {})
 
   return (msg) => {
     if (!extractedSdkTest.includes(currentSuite[0])) {
-      console.log(currentSuite[0]);
+      // console.log(currentSuite[0]);
       const {type, name, message, plan, topSuite} = msg;
       const suite = currentSuite.join(' / ');
 
