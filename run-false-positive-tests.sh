@@ -15,7 +15,7 @@ disableLeakChecksForTest=(
 # shellcheck disable=SC2039
 falsePositiveTests=(
   'Ext.calendar.panel.Panel'
-  #'Ext.pivot.Grid.classic'
+  'Ext.pivot.Grid.classic'
   'Ext.draw.Surface'
   'Ext.grid.filters.Filters'
   'Ext.froala.Editor.classic'
