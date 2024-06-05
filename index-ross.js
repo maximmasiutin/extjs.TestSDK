@@ -3,13 +3,13 @@ import { resolve } from 'path'
 import { performance } from 'perf_hooks'
 import playwright from 'playwright'
 import terminal from 'terminal-kit'
-import shortid from 'shortid'
+import shortuniqueid from "short-unique-id";
 import { formatDistance } from 'date-fns'
 import { createServer } from 'http-server'
 
 const { terminal: term } = terminal
 const indent = '  '
-const testRunId = shortid.generate()
+const testRunId = (new shortuniqueid({length: 10})).rnd();
 const resultsDir = resolve('.', 'results')
 
 if (!fs.existsSync(resultsDir)) {
