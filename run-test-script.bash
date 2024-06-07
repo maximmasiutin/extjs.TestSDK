@@ -1,7 +1,15 @@
 #!/bin/bash
 
 [ -e $SENCHATESTOUTPUTFNAME ] && rm $SENCHATESTOUTPUTFNAME
-node $SENCHATESTSCRIPTNAME -show-pass true -sdk-url "http://127.0.0.1:1841/" -toolkits classic,modern -browsers $SENCHATESTBROWSERS 1>$SENCHATESTOUTPUTFNAME 2>&1
+
+GTIMECMD=$(which gtime)
+if [ -x "$GTIMECMD" ]; then
+  TIMECMD="$GTIMECMD"
+else
+  TIMECMD="time"
+fi
+$TIMECMD -v node $SENCHATESTSCRIPTNAME -show-pass true -sdk-url "http://127.0.0.1:1841/" -toolkits classic,modern -browsers $SENCHATESTBROWSERS 1>$SENCHATESTOUTPUTFNAME 2>&1
+
 [ -e $SENCHATESTARCHNAME ] && rm $SENCHATESTARCHNAME
 7zz a -mx9 $SENCHATESTARCHNAME $SENCHATESTOUTPUTFNAME
 
