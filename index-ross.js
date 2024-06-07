@@ -43,7 +43,7 @@ function validateValues(types, providedValues) {
     return validTypes;
 }
 
-$last = `\n`;
+let $last = `\n`;
 
 args.forEach(function(arg) {
   switch(arg) {
