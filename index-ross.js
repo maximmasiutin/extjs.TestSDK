@@ -24,7 +24,7 @@ var showPass = false;
 var argIndex = 0;
 var browsers = ['chromium', 'firefox', 'webkit'];
 var toolkits = ['classic', 'modern'];
-let lastOutput = `\n`;
+var lastOutput = `\n`;
 
 
 const separator = ',';
