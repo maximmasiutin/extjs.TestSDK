@@ -141,8 +141,9 @@ const run = (engine, url, { launchSettings, processorSettings } = {}) => {
         const page = await context.newPage()
         const engineName = engine.name()
 
-        const cb = (results) => {
-            browser.close()
+        const cb = async (results) => {
+            await browser.close()
+            await resolve(results)
             resolve(results)
         }
         const processor = createMessageProcessor(cb, { ...processorSettings, browser: engineName })
@@ -167,7 +168,6 @@ const getRunner = (browser, toolkit) => {
     return async () => {
         const engine = playwright[browser]
         const id = `${toolkit}-${browser}`
-        //const url = `http://127.0.0.1:1841/ext/${toolkit}/${toolkit}/test/local/?collapseAll=true&headless-test=true`;
         let url = sdkHost + `ext/${toolkit}/${toolkit}/test/local/?headless-test=true`;
 
         if (singleTest) {
