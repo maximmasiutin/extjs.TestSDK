@@ -7,7 +7,7 @@ GTIMECMD=$(which gtime)
 if [ -x "$GTIMECMD" ]; then
   TIMECMD="$GTIMECMD"
 else
-  TIMECMD=time
+  TIMECMD="time"
 fi
 $TIMECMD -v ./run-false-positive-tests.bash 1>false-positive-all-browsers.txt 2>&1
 
