@@ -25,7 +25,7 @@ var argIndex = 0;
 var browsers = ['chromium', 'firefox', 'webkit'];
 var toolkits = ['classic', 'modern'];
 
-let separator = ',';
+const separator = ',';
 
 function validateValues(types, providedValues) {
     let validTypes = [];
@@ -43,8 +43,13 @@ function validateValues(types, providedValues) {
     return validTypes;
 }
 
+$last = `\n`;
+
 args.forEach(function(arg) {
   switch(arg) {
+    case '-last-space':
+      $last = ` `;
+    break;
     case '-sdk-url':
       sdkHost = args[argIndex + 1];
     break;
@@ -179,7 +184,7 @@ const getRunner = (browser, toolkit) => {
 const PORT = 1841
 const server = createServer({ root: '../' })
 server.listen(PORT)
-term.green(`Server Listening on port ${PORT}\n`)
+term.green(`Server listening on port ${PORT}\n`)
 
 const testStartTime = performance.now()
 let totalTestsRun = 0
@@ -203,7 +208,7 @@ allResults.forEach(({ id, results, time }) => {
   totalTestsRun += results.length
 
   if (results.length > 0) {
-    term.bgWhite.black(`${results.length} test ran in ${time} on ${id}. `)
+    term.bgWhite.black(`${results.length} test ran in ${time} on ${id}.${last}`)
 
     if (totalFailures) {
       totalTestsFailed += totalFailures;
