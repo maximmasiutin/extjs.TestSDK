@@ -24,6 +24,8 @@ var showPass = false;
 var argIndex = 0;
 var browsers = ['chromium', 'firefox', 'webkit'];
 var toolkits = ['classic', 'modern'];
+let lastOutput = `\n`;
+
 
 const separator = ',';
 
@@ -43,12 +45,10 @@ function validateValues(types, providedValues) {
     return validTypes;
 }
 
-let $last = `\n`;
-
 args.forEach(function(arg) {
   switch(arg) {
     case '-last-space':
-      $last = ` `;
+      lastOutput = ` `;
     break;
     case '-sdk-url':
       sdkHost = args[argIndex + 1];
@@ -208,7 +208,7 @@ allResults.forEach(({ id, results, time }) => {
   totalTestsRun += results.length
 
   if (results.length > 0) {
-    term.bgWhite.black(`${results.length} test ran in ${time} on ${id}.${last}`)
+    term.bgWhite.black(`${results.length} test ran in ${time} on ${id}.${lastOutput}`)
 
     if (totalFailures) {
       totalTestsFailed += totalFailures;
