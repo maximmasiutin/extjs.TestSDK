@@ -1,0 +1,4 @@
+*.cmd text eol=crlf
+*.bash text eol=lf
+.gitattributes text eof=lf
+package.json eol=lf
