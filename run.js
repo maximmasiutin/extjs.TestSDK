@@ -190,10 +190,10 @@ const getRunner = (browser, toolkit) => {
 
 var server;
 if (doNotRunWebServer === false) {
-    const PORT = 1842;
+    const PORT = 1841;
     server = createServer(
         {
-            root: '../SDK3/'
+            root: '../'
         }
     );
     server.listen(PORT);
