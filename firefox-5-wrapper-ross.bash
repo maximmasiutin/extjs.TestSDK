@@ -7,8 +7,8 @@ export SENCHATESTBROWSERS=firefox
 
 for i in $(seq 1 5);
 do
-export SENCHATESTOUTPUTFNAME="firefox-$i-run-tests.txt"
-export SENCHATESTARCHNAME="firefox-$i-run-tests.7z"
+export SENCHATESTOUTPUTFNAME="firefox-$i-ross.txt"
+export SENCHATESTARCHNAME="firefox-$i-ross.7z"
 ./run-test-script.bash
 done
 
