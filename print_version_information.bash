@@ -3,7 +3,7 @@
 echo ""
 case "$OSTYPE" in
   darwin*)  echo "OSX" ;; 
-  linux*)   lsb_release -a 2>&1 ;;
+  linux*)   lsb_release -a 2>&1;sudo lshw 2>&1;lscpu 2>&1;;
   msys*)    echo "sw_vers" 2>&1;;
   cygwin*)  echo "ver" ;;
 esac
