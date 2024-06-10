@@ -1,13 +1,14 @@
 #!/bin/bash
 
 export SENCHATESTSCRIPTNAME=index-ross.js
-export SENCHATESTBROWSERS=firefox
+export SENCHATESTBROWSERS=chromium
+export SENCHAOUTPUTFILENAMECLASS=chromium
 
 for i in $(seq 1 5);
 do
-export SENCHATESTOUTPUTFNAME="firefox-$i-ross.txt"
+export SENCHATESTOUTPUTFNAME="$SENCHAOUTPUTFILENAMECLASS-$i-ross-$OSTYPE.txt"
 echo "Output file: $SENCHATESTOUTPUTFNAME"
-export SENCHATESTARCHNAME="firefox-$i-ross.7z"
+export SENCHATESTARCHNAME="$SENCHAOUTPUTFILENAMECLASS-$i-ross-$OSTYPE.7z"
 echo "Archive name: $SENCHATESTARCHNAME"
 ./run-test-script.bash
 done
