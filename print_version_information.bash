@@ -13,7 +13,7 @@ echo ""
 echo "node.js version: $(node --version)"
 echo "npm version: $(npm --version)"
 echo "Playwright version: $(npx playwright -V)"
-PHANTOMJSCMD=$(which sencha)
+PHANTOMJSCMD=$(which phantomjs)
 if [ -x "$PHANTOMJSCMD" ]; then
 echo "PhantomJS version: $(phantomjs -v)"
 fi
