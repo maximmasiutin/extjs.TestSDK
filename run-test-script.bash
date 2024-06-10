@@ -12,7 +12,7 @@ date >$SENCHATESTOUTPUTFNAME 2>&1
 $TIMECMD -v ./nodejsscript.bash 1>>$SENCHATESTOUTPUTFNAME 2>&1
 unameOut="$(uname -s)"
 case "${unameOut}" in
-    Linux*)     ./pslinux.bash1>>$SENCHATESTOUTPUTFNAME 2>&1
+    Linux*)     ./pslinux.bash 1>>$SENCHATESTOUTPUTFNAME 2>&1
 ;;
 esac
 ./print_version_information.bash 1>>$SENCHATESTOUTPUTFNAME 2>&1
