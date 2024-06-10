@@ -1,8 +1,8 @@
 #!/bin/bash
 
 export SENCHATESTSCRIPTNAME=index-ross.js
-export SENCHATESTBROWSERS=chromium
-export SENCHAOUTPUTFILENAMECLASS=chromium
+export SENCHATESTBROWSERS=firefox
+export SENCHAOUTPUTFILENAMECLASS=firefox
 
 for i in $(seq 1 5);
 do
